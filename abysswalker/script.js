@@ -655,7 +655,7 @@ function autoAction() {
     if (!enemy) {
         const maxHp = calculateMaxHp();
         if (player.currentHp < maxHp * 0.4 && player.gold >= 5) {
-            el.btnHeal.click();
+            heal();
         } else {
             spawnEnemy();
         }
