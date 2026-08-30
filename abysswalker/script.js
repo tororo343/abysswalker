@@ -253,15 +253,15 @@ function saveGame() {
     localStorage.setItem('rpg_save_v3', JSON.stringify(player));
 }
 
+function formatNumber(num) {
+    if (num >= 100000) return num.toExponential(4);
+    return Math.floor(num).toLocaleString('en-US');
+}
+
 function updateUI() {
     if (el.floor) el.floor.textContent = player.floor;
     if (el.maxFloor) el.maxFloor.textContent = player.stats.maxFloor;
     if (el.lvl) el.lvl.textContent = player.lvl;
-    
-    function formatNumber(num) {
-        if (num >= 100000) return num.toExponential(4);
-        return Math.floor(num).toLocaleString('en-US'); // Optionally format with commas
-    }
     
     const maxHp = calculateMaxHp();
     el.hp.textContent = formatNumber(player.currentHp);
