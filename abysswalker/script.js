@@ -771,24 +771,6 @@ function submitScore() {
     }).catch(console.error);
 }
 
-function sendAdminLog(action, details) {
-    if (!player.name) return;
-    fetch('/api/log', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            name: player.name,
-            action: action,
-            details: details
-        })
-    }).catch(e => {}); // Silent fail
-}
-
-// Initial admin login log
-if (player.name) {
-    sendAdminLog('ログイン', `ゲームを起動・再開しました (B${player.floor}F, ゴールド:${formatNumber(player.gold)})`);
-}
-
 // Modal Listeners
 el.btnRanking.addEventListener('click', () => {
     if (!player.name) {

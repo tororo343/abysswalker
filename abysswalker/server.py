@@ -65,26 +65,6 @@ class RPGHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_response(400)
                 self.end_headers()
                 self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode('utf-8'))
-        elif self.path == '/api/log':
-            content_length = int(self.headers['Content-Length'])
-            post_data = self.rfile.read(content_length)
-            try:
-                log_data = json.loads(post_data.decode('utf-8'))
-                name = log_data.get('name', '名無し')
-                action = log_data.get('action', 'Unknown')
-                details = log_data.get('details', '')
-                
-                ip = self.headers.get('X-Forwarded-For', self.client_address[0]).split(',')[0]
-                print(f"[PLAYER LOG] [{ip}] {name} | Action: {action} | {details}", flush=True)
-                
-                self.send_response(200)
-                self.send_header('Content-Type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"status": "success"}).encode('utf-8'))
-            except Exception as e:
-                self.send_response(400)
-                self.end_headers()
-                self.wfile.write(json.dumps({"status": "error"}).encode('utf-8'))
         else:
             self.send_response(404)
             self.end_headers()
