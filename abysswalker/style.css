@@ -118,7 +118,7 @@ input:checked + .slider:before { transform: translateX(26px); }
     color: var(--gold);
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-align: center;
 }
 
@@ -126,7 +126,7 @@ input:checked + .slider:before { transform: translateX(26px); }
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     flex-wrap: wrap;
 }
 
