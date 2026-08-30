@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Abyss Walker - Idle RPG</title>
+    <!-- AdSense Tag -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2330735378895570" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    
+    <header class="top-bar">
+        <h1>ABYSS WALKER</h1>
+        <div class="auto-toggle">
+            <span>AUTO BATTLE</span>
+            <label class="switch">
+                <input type="checkbox" id="auto-btn">
+                <span class="slider round"></span>
+            </label>
+        </div>
+    </header>
+
+    <div class="ad-container top-ad">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-2330735378895570"
+             data-ad-slot="0000000000"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <main class="game-container">
+        <!-- Left Panel: Player Status -->
+        <section class="panel status-panel" id="panel-status">
+            <h2>Player Status</h2>
+            <div class="stat-box">
+                <span class="label">Floor</span>
+                <div style="text-align: right;">
+                    <span class="value">B<span id="player-floor">1</span>F</span>
+                    <div style="font-size: 0.8rem; color: var(--text-dim);">Best: B<span id="player-max-floor">1</span>F</div>
+                </div>
+            </div>
+            <div class="stat-box">
+                <span class="label">Level</span>
+                <span class="value" id="player-lvl">1</span>
+            </div>
+            <div class="stat-box">
+                <span class="label">EXP</span>
+                <div class="progress-bar">
+                    <div class="progress-fill exp-fill" id="player-exp-bar"></div>
+                </div>
+                <span class="hp-text"><span id="player-exp">0</span> / <span id="player-req-exp">100</span></span>
+            </div>
+            <div class="stat-box">
+                <span class="label">HP</span>
+                <div class="progress-bar">
+                    <div class="progress-fill hp-fill" id="player-hp-bar"></div>
+                </div>
+                <span class="hp-text"><span id="player-hp">100</span> / <span id="player-maxhp">100</span></span>
+            </div>
+            <div class="stat-box">
+                <span class="label">ATK</span>
+                <span class="value" id="player-atk">10</span>
+            </div>
+            <div class="stat-box">
+                <span class="label">DEF</span>
+                <span class="value" id="player-def">5</span>
+            </div>
+            <div class="stat-box gold-box">
+                <span class="label">Gold</span>
+                <span class="value" id="player-gold">0</span> <span class="coin">G</span>
+            </div>
+
+            <!-- Mini Screen Buttons -->
+            <button id="btn-inventory" class="action-btn shop-btn" style="margin-top: 15px; width: 100%;">🎒 装備一覧を開く</button>
+            <button id="btn-achievements" class="action-btn shop-btn" style="margin-top: 10px; width: 100%;">🏆 実績一覧を開く</button>
+            <button id="btn-ranking" class="action-btn shop-btn" style="margin-top: 10px; width: 100%; background: linear-gradient(180deg, #ffd700, #f57f17); color: #000;">👑 ランキング</button>
+            <button id="btn-floor-jump" class="action-btn shop-btn" style="margin-top: 10px; width: 100%;">🚪 階層移動 (50階置き)</button>
+        </section>
+
+        <!-- Center Panel: Battle Screen -->
+        <section class="panel battle-panel active" id="panel-battle">
+            <div class="enemy-area">
+                <h3 id="enemy-name">No Enemy</h3>
+                <div class="stat-box" style="width: 80%; margin: 0 auto; margin-top: 15px; flex-direction: column;">
+                    <div class="progress-bar enemy-hp-bar-bg" style="margin:0; width: 100%;">
+                        <div class="progress-fill hp-fill" id="enemy-hp-bar" style="width:0%;"></div>
+                    </div>
+                    <span class="hp-text" style="text-align: center;"><span id="enemy-hp">0</span> / <span id="enemy-maxhp">0</span></span>
+                </div>
+            </div>
+
+            <div class="battle-log" id="battle-log">
+                <div class="log-entry system">迷宮の入り口に立っている...</div>
+            </div>
+
+            <div class="action-buttons">
+                <button id="btn-explore" class="action-btn primary">探索する</button>
+                <button id="btn-attack" class="action-btn danger" disabled>攻撃</button>
+                <button id="btn-heal" class="action-btn success">回復 (5G)</button>
+            </div>
+        </section>
+
+        <!-- Right Panel: Shop / Upgrades -->
+        <section class="panel shop-panel" id="panel-shop">
+            <h2>Blacksmith</h2>
+            <div class="upgrade-item">
+                <div class="upgrade-info">
+                    <span class="upgrade-name">Weapon Upgrade</span>
+                    <span class="upgrade-desc">Base ATK +2</span>
+                </div>
+                <button id="btn-upg-atk" class="action-btn shop-btn">Cost: <span id="cost-atk">10</span> G</button>
+            </div>
+            <div class="upgrade-item">
+                <div class="upgrade-info">
+                    <span class="upgrade-name">Armor Upgrade</span>
+                    <span class="upgrade-desc">Base DEF +1</span>
+                </div>
+                <button id="btn-upg-def" class="action-btn shop-btn">Cost: <span id="cost-def">10</span> G</button>
+            </div>
+            <div class="upgrade-item">
+                <div class="upgrade-info">
+                    <span class="upgrade-name">Vitality Ring</span>
+                    <span class="upgrade-desc">Base Max HP +10</span>
+                </div>
+                <button id="btn-upg-hp" class="action-btn shop-btn">Cost: <span id="cost-hp">20</span> G</button>
+            </div>
+            
+            <div class="ad-container sidebar-ad">
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-2330735378895570"
+                     data-ad-slot="0000000000"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals (Mini Screens) -->
+    <div id="name-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content panel" style="text-align: center;">
+            <h2>プレイヤー名登録</h2>
+            <p style="margin-bottom: 15px; color: var(--text-dim);">ランキングに参加するための名前を入力してください</p>
+            <input type="text" id="player-name-input" placeholder="名前 (10文字以内)" maxlength="10" style="padding: 10px; font-size: 1rem; margin-bottom: 15px; width: 100%; background: #000; color: #fff; border: 1px solid var(--border-color); border-radius: 5px;">
+            <div style="display: flex; gap: 10px;">
+                <button id="btn-cancel-name" class="action-btn shop-btn" style="flex: 1;">キャンセル</button>
+                <button id="btn-save-name" class="action-btn success" style="flex: 1;">登録する</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="ranking-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content panel">
+            <h2>👑 ランキング (Top 10)</h2>
+            <div id="ranking-list" class="inventory-list" style="margin-bottom: 15px;">
+                <!-- Rankings loaded here -->
+            </div>
+            <button id="btn-close-ranking" class="action-btn danger" style="margin-top: auto;">閉じる</button>
+        </div>
+    </div>
+
+    <div id="inventory-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content panel">
+            <h2>装備一覧 (Inventory)</h2>
+            <div id="inventory-list" class="inventory-list"></div>
+            <button id="btn-close-inv" class="action-btn danger" style="margin-top: 20px;">閉じる</button>
+        </div>
+    </div>
+
+    <div id="achievements-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content panel">
+            <h2>実績 (Achievements)</h2>
+            <div id="achievements-list" class="achievements-list"></div>
+            <button id="btn-close-ach" class="action-btn danger" style="margin-top: 20px;">閉じる</button>
+        </div>
+    </div>
+    
+    <div id="floor-jump-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content panel">
+            <h2>🚪 階層移動</h2>
+            <p style="text-align:center; color:var(--text-dim); font-size:0.9rem; margin-bottom:15px;">※到達済みの階層に50階単位で移動できます</p>
+            <div id="floor-list" class="inventory-list" style="margin-bottom: 15px;">
+                <!-- Floors loaded here -->
+            </div>
+            <button id="btn-close-floor" class="action-btn danger" style="margin-top: auto;">閉じる</button>
+        </div>
+    </div>
+    
+    <!-- Mobile Navigation Bar (hidden on desktop) -->
+    <nav class="mobile-nav">
+        <button class="nav-btn" data-target="panel-status">🧑 Status</button>
+        <button class="nav-btn active" data-target="panel-battle">⚔️ Battle</button>
+        <button class="nav-btn" data-target="panel-shop">💰 Shop</button>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
