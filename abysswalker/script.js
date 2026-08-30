@@ -226,7 +226,15 @@ function updateUI() {
     if (el.expBar) el.expBar.style.width = `${(player.exp / expReq) * 100}%`;
     
     if (el.btnAuto) el.btnAuto.checked = player.autoBattle;
-    if (el.btnStay) el.btnStay.checked = player.stayOnFloor;
+    if (el.btnStay) {
+        if (player.stayOnFloor) {
+            el.btnStay.textContent = "🔄 階層固定: ON";
+            el.btnStay.style.color = "var(--gold)";
+        } else {
+            el.btnStay.textContent = "🔄 階層固定: OFF";
+            el.btnStay.style.color = "var(--text-dim)";
+        }
+    }
     
     if (el.exp && el.reqExp) {
         el.exp.textContent = player.exp;
@@ -543,8 +551,9 @@ function toggleAuto() {
     updateUI();
 }
 
-el.btnStay.addEventListener('change', (e) => {
-    player.stayOnFloor = e.target.checked;
+el.btnStay.addEventListener('click', () => {
+    player.stayOnFloor = !player.stayOnFloor;
+    updateUI();
     saveGame();
 });
 
