@@ -247,6 +247,25 @@ input:checked + .slider:before { transform: translateX(26px); }
     touch-action: manipulation !important;
     user-select: none;
     -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+.mult-btn {
+    flex: 1;
+    background: #333;
+    color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+}
+.mult-btn.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    font-weight: bold;
 }
 .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .action-btn:active:not(:disabled) { transform: scale(0.95); }

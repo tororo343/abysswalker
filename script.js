@@ -21,12 +21,26 @@ const equipData = [
     { id: 'm1', name: '創世の剣', desc: 'ATK+50000', type: 'atk', val: 50000, rarity: 'mythic', prob: 0.00001 },
     { id: 'm2', name: 'イージスの盾', desc: 'DEF+50000', type: 'def', val: 50000, rarity: 'mythic', prob: 0.00001 },
     { id: 'm3', name: '世界樹の指輪', desc: 'MaxHP+200000', type: 'hp', val: 200000, rarity: 'mythic', prob: 0.00001 },
-    { id: 'm4', name: '破壊神の鎌', desc: 'ATK+100000', type: 'atk', val: 100000, rarity: 'mythic', prob: 0.000005 },
+    { id: 'm4', name: '破壊神の鎧', desc: 'ATK+100000', type: 'atk', val: 100000, rarity: 'mythic', prob: 0.000005 },
     { id: 'm5', name: '全能のオーブ', desc: 'MaxHP+500000', type: 'hp', val: 500000, rarity: 'mythic', prob: 0.000005 },
     { id: 'p1', name: '狂戦士の証', desc: 'ATK+10%', type: 'atk%', val: 10, rarity: 'epic', prob: 0.005 },
-    { id: 'p2', name: '鉄壁の紋章', desc: 'DEF+10%', type: 'def%', val: 10, rarity: 'epic', prob: 0.005 },
+    { id: 'p2', name: '鉄壁の誓約', desc: 'DEF+10%', type: 'def%', val: 10, rarity: 'epic', prob: 0.005 },
     { id: 'p3', name: '生命の杯', desc: 'MaxHP+10%', type: 'hp%', val: 10, rarity: 'epic', prob: 0.005 },
-    { id: 'm6', name: '神魔の魂', desc: 'ATK+100%', type: 'atk%', val: 100, rarity: 'mythic', prob: 0.00001 }
+    { id: 'm6', name: '神魔の剣', desc: 'ATK+100%', type: 'atk%', val: 100, rarity: 'mythic', prob: 0.00001 },
+    { id: 'w5', name: '竜殺しの大剣', desc: 'ATK+15000', type: 'atk', val: 15000, rarity: 'epic', prob: 0.0005 },
+    { id: 'w6', name: '星砕きの槌', desc: 'ATK+150000', type: 'atk', val: 150000, rarity: 'legendary', prob: 0.00005 },
+    { id: 'w7', name: '銀河の剣', desc: 'ATK+1000000', type: 'atk', val: 1000000, rarity: 'mythic', prob: 0.000002 },
+    { id: 'a5', name: '竜鱗の鎧', desc: 'DEF+15000', type: 'def', val: 15000, rarity: 'epic', prob: 0.0005 },
+    { id: 'a6', name: '星光の盾', desc: 'DEF+150000', type: 'def', val: 150000, rarity: 'legendary', prob: 0.00005 },
+    { id: 'a7', name: '銀河の壁', desc: 'DEF+1000000', type: 'def', val: 1000000, rarity: 'mythic', prob: 0.000002 },
+    { id: 'h3', name: '竜血の結晶', desc: 'MaxHP+60000', type: 'hp', val: 60000, rarity: 'epic', prob: 0.0005 },
+    { id: 'h4', name: '星明の霊薬', desc: 'MaxHP+600000', type: 'hp', val: 600000, rarity: 'legendary', prob: 0.00005 },
+    { id: 'h5', name: '銀河の魂', desc: 'MaxHP+4000000', type: 'hp', val: 4000000, rarity: 'mythic', prob: 0.000002 },
+    { id: 'p4', name: '狂王の王冠', desc: 'ATK+50%', type: 'atk%', val: 50, rarity: 'legendary', prob: 0.0005 },
+    { id: 'p5', name: '鉄壁の誓い', desc: 'DEF+50%', type: 'def%', val: 50, rarity: 'legendary', prob: 0.0005 },
+    { id: 'p6', name: '不死の呪い', desc: 'MaxHP+50%', type: 'hp%', val: 50, rarity: 'legendary', prob: 0.0005 },
+    { id: 'm7', name: '神魔の盾', desc: 'DEF+100%', type: 'def%', val: 100, rarity: 'mythic', prob: 0.00001 },
+    { id: 'm8', name: '神魔の血', desc: 'MaxHP+100%', type: 'hp%', val: 100, rarity: 'mythic', prob: 0.00001 }
 ];
 
 const achData = [
@@ -44,7 +58,17 @@ const achData = [
     { id: 'die10', name: '死に戻り', desc: '10回死亡する', reward: '基本DEF+50', req: 'die1' },
     { id: 'mythic1', name: '神話の始まり', desc: '神話(Mythic)装備を1種類手に入れる', reward: '基本ATK+5000', req: null },
     { id: 'mythic3', name: '神々の加護', desc: '神話(Mythic)装備を3種類手に入れる', reward: '基本MaxHP+50000', req: 'mythic1' },
-    { id: 'mythic5', name: '世界の覇者', desc: '神話(Mythic)装備を全5種類手に入れる', reward: '基本ATK+50000', req: 'mythic3' }
+    { id: 'mythic5', name: '世界の観測者', desc: '神話(Mythic)装備を全5種類手に入れる', reward: '基本ATK+50000', req: 'mythic3' },
+    { id: 'kill50000', name: '死神', desc: '敵を50000体倒す', reward: 'DEF+50%', req: 'kill10000' },
+    { id: 'kill100000', name: '殲滅者', desc: '敵を100000体倒す', reward: 'MaxHP+100%', req: 'kill50000' },
+    { id: 'floor300', name: '絶望の淵', desc: '300階層に到達する', reward: '基本ATK+10000', req: 'floor200' },
+    { id: 'floor400', name: '虚無', desc: '400階層に到達する', reward: '基本DEF+10000', req: 'floor300' },
+    { id: 'floor500', name: '深淵の主', desc: '500階層に到達する', reward: '基本MaxHP+100000', req: 'floor400' },
+    { id: 'lvl100', name: '覚醒者', desc: 'レベル100になる', reward: '基本ATK+5000', req: 'lvl50' },
+    { id: 'lvl200', name: '超越者', desc: 'レベル200になる', reward: '基本DEF+5000', req: 'lvl100' },
+    { id: 'lvl500', name: '神の領域', desc: 'レベル500になる', reward: '基本MaxHP+50000', req: 'lvl200' },
+    { id: 'die50', name: '不死鳥', desc: '50回死亡する', reward: '基本DEF+500', req: 'die10' },
+    { id: 'die100', name: '死を克服せし者', desc: '100回死亡する', reward: '基本DEF+5000', req: 'die50' }
 ];
 
 // --- State Management ---
@@ -79,18 +103,20 @@ const defaultState = {
 let player = JSON.parse(localStorage.getItem('rpg_save_v3')) || { ...defaultState };
 player.autoBattle = false; // Always start with auto-battle OFF on page load
 
-// Backward compatibility or migration
-if (player.bonusHpPct === undefined) {
-    player.bonusHpPct = 0;
-    player.bonusAtkPct = 0;
-    player.bonusDefPct = 0;
+// Robust migration: Ensure all default properties exist
+for (const key in defaultState) {
+    if (player[key] === undefined) {
+        player[key] = JSON.parse(JSON.stringify(defaultState[key]));
+    }
 }
-if (player.stayOnFloor === undefined) {
-    player.stayOnFloor = false;
-}
-if (!player.inventory) {
-    player = { ...defaultState }; // Force reset for major architecture change
-    localStorage.removeItem('rpg_save'); // clear old save if it exists
+// Fix corrupted NaN values
+if (isNaN(player.baseAtk)) player.baseAtk = 10;
+if (isNaN(player.baseDef)) player.baseDef = 5;
+if (isNaN(player.baseHp)) player.baseHp = 100;
+if (isNaN(player.currentHp)) player.currentHp = 100;
+
+if (!player.inventory || Array.isArray(player.inventory)) {
+    player.inventory = {};
 }
 if (player.currentHp > calculateMaxHp()) player.currentHp = calculateMaxHp();
 
@@ -140,6 +166,7 @@ if (!player.refunded101) {
 let enemy = null;
 let isAuto = false;
 let autoInterval = null;
+let buyMultiplier = 1;
 
 // --- DOM Elements ---
 const el = {
@@ -154,6 +181,7 @@ const el = {
     floor: document.getElementById('player-floor'),
     maxFloor: document.getElementById('player-max-floor'),
     lvl: document.getElementById('player-lvl'),
+    rank: document.getElementById('player-rank'),
     atk: document.getElementById('player-atk'),
     def: document.getElementById('player-def'),
     gold: document.getElementById('player-gold'),
@@ -290,13 +318,17 @@ function updateUI() {
     }
     el.hpBar.style.width = `${(Math.max(0, player.currentHp) / maxHp) * 100}%`;
     
-    el.costAtk.textContent = formatNumber(player.costAtk);
-    el.costDef.textContent = formatNumber(player.costDef);
-    el.costHp.textContent = formatNumber(player.costHp);
+    let atkInfo = getUpgradeInfo(player.costAtk, player.gold, buyMultiplier);
+    let defInfo = getUpgradeInfo(player.costDef, player.gold, buyMultiplier);
+    let hpInfo  = getUpgradeInfo(player.costHp, player.gold, buyMultiplier);
+
+    el.costAtk.textContent = formatNumber(atkInfo.totalCost) + (atkInfo.count > 1 ? ` (+${atkInfo.count})` : '');
+    el.costDef.textContent = formatNumber(defInfo.totalCost) + (defInfo.count > 1 ? ` (+${defInfo.count})` : '');
+    el.costHp.textContent  = formatNumber(hpInfo.totalCost)  + (hpInfo.count > 1 ? ` (+${hpInfo.count})` : '');
     
-    el.btnUpgAtk.disabled = player.gold < player.costAtk;
-    el.btnUpgDef.disabled = player.gold < player.costDef;
-    el.btnUpgHp.disabled = player.gold < player.costHp;
+    el.btnUpgAtk.disabled = player.gold < atkInfo.totalCost || atkInfo.count === 0;
+    el.btnUpgDef.disabled = player.gold < defInfo.totalCost || defInfo.count === 0;
+    el.btnUpgHp.disabled  = player.gold < hpInfo.totalCost || hpInfo.count === 0;
     el.btnHeal.disabled = player.gold < 5 || player.currentHp >= maxHp || enemy !== null;
 
     if (enemy) {
@@ -309,7 +341,7 @@ function updateUI() {
 }
 
 function getExpReq() {
-    return Math.floor(100 * Math.pow(1.5, player.lvl - 1));
+    return Math.floor(100 * Math.pow(1.01, player.lvl - 1));
 }
 
 function log(msg, type = 'system') {
@@ -344,14 +376,24 @@ function checkAchievements() {
             case 'kill100': conditionMet = player.stats.kills >= 100; break;
             case 'kill1000': conditionMet = player.stats.kills >= 1000; break;
             case 'kill10000': conditionMet = player.stats.kills >= 10000; break;
+            case 'kill50000': conditionMet = player.stats.kills >= 50000; break;
+            case 'kill100000': conditionMet = player.stats.kills >= 100000; break;
             case 'floor10': conditionMet = player.stats.maxFloor >= 10; break;
             case 'floor50': conditionMet = player.stats.maxFloor >= 50; break;
             case 'floor100': conditionMet = player.stats.maxFloor >= 100; break;
             case 'floor200': conditionMet = player.stats.maxFloor >= 200; break;
+            case 'floor300': conditionMet = player.stats.maxFloor >= 300; break;
+            case 'floor400': conditionMet = player.stats.maxFloor >= 400; break;
+            case 'floor500': conditionMet = player.stats.maxFloor >= 500; break;
             case 'lvl10': conditionMet = player.lvl >= 10; break;
             case 'lvl50': conditionMet = player.lvl >= 50; break;
+            case 'lvl100': conditionMet = player.lvl >= 100; break;
+            case 'lvl200': conditionMet = player.lvl >= 200; break;
+            case 'lvl500': conditionMet = player.lvl >= 500; break;
             case 'die1': conditionMet = player.stats.deaths >= 1; break;
             case 'die10': conditionMet = player.stats.deaths >= 10; break;
+            case 'die50': conditionMet = player.stats.deaths >= 50; break;
+            case 'die100': conditionMet = player.stats.deaths >= 100; break;
             case 'mythic1': conditionMet = getMythicCount() >= 1; break;
             case 'mythic3': conditionMet = getMythicCount() >= 3; break;
             case 'mythic5': conditionMet = getMythicCount() >= 5; break;
@@ -375,7 +417,7 @@ function checkAchievements() {
                 if (ach.reward.includes('DEF')) player.baseDef += parseInt(ach.reward.split('+')[1]);
             }
 
-            log(`🏆 実績解除: ${ach.name} (${ach.reward})`, 'system');
+            log(`実績解除: ${ach.name} (${ach.reward})`, 'system');
             unlockedAny = true;
         }
     });
@@ -387,7 +429,7 @@ function checkAchievements() {
 }
 
 function spawnEnemy() {
-    let isBoss = (player.floor % 100 === 0);
+    let isBoss = (player.floor % 50 === 0);
     const scale = Math.pow(1.03, player.floor - 1);
     
     if (isBoss) {
@@ -401,7 +443,7 @@ function spawnEnemy() {
             gold: Math.floor(10 * scale * 20),
             isBoss: true
         };
-        log(`🚨 警告：階層の主が姿を現した...！`, 'enemy-attack');
+        log(`警告：深淵の主が姿を現した...！`, 'enemy-attack');
     } else {
         const template = enemies[Math.floor(Math.random() * enemies.length)];
         enemy = {
@@ -474,7 +516,7 @@ function rollDrops(isBoss = false) {
             if (item.rarity === 'legendary') logType = 'legendary-drop';
             if (item.rarity === 'mythic') logType = 'mythic-drop';
             
-            log(`✨ 【${item.rarity.toUpperCase()}】${item.name} をドロップした！`, logType);
+            log(`${item.rarity.toUpperCase()} ${item.name} をドロップした！`, logType);
             dropped = true;
         }
     });
@@ -585,10 +627,7 @@ function setupContinuousButton(btn, action, continuous = false) {
     btn.addEventListener('contextmenu', e => e.preventDefault());
 }
 
-setupContinuousButton(el.btnExplore, spawnEnemy, false);
-setupContinuousButton(el.btnAttack, attack, true);
-
-setupContinuousButton(el.btnHeal, () => {
+function heal() {
     const maxHp = calculateMaxHp();
     if (player.gold >= 5 && player.currentHp < maxHp && !enemy) {
         player.gold -= 5;
@@ -597,22 +636,59 @@ setupContinuousButton(el.btnHeal, () => {
         updateUI();
         saveGame();
     }
-}, true);
+}
+
+setupContinuousButton(el.btnExplore, spawnEnemy, false);
+setupContinuousButton(el.btnAttack, attack, true);
+setupContinuousButton(el.btnHeal, heal, true);
+
+function getUpgradeInfo(baseCost, gold, mult) {
+    let count = 0;
+    let totalCost = 0;
+    let currentCost = baseCost;
+
+    if (mult === 'MAX') {
+        while (gold >= totalCost + currentCost) {
+            totalCost += currentCost;
+            currentCost = Math.ceil(currentCost * 1.01);
+            count++;
+            if (count > 99999) break;
+        }
+        if (count === 0) totalCost = baseCost; // for UI display when poor
+    } else {
+        for (let i = 0; i < mult; i++) {
+            totalCost += currentCost;
+            currentCost = Math.ceil(currentCost * 1.01);
+        }
+        count = mult;
+    }
+    return { count, totalCost, nextCost: currentCost };
+}
 
 function buyUpgrade(type) {
-    if (type === 'atk' && player.gold >= player.costAtk) {
-        player.gold -= player.costAtk;
-        player.baseAtk += 2;
-        player.costAtk = Math.ceil(player.costAtk * 1.01);
-    } else if (type === 'def' && player.gold >= player.costDef) {
-        player.gold -= player.costDef;
-        player.baseDef += 1;
-        player.costDef = Math.ceil(player.costDef * 1.01);
-    } else if (type === 'hp' && player.gold >= player.costHp) {
-        player.gold -= player.costHp;
-        player.baseHp += 10;
-        player.currentHp += 10;
-        player.costHp = Math.ceil(player.costHp * 1.01);
+    let info;
+    if (type === 'atk') {
+        info = getUpgradeInfo(player.costAtk, player.gold, buyMultiplier);
+        if (info.count > 0 && player.gold >= info.totalCost) {
+            player.gold -= info.totalCost;
+            player.baseAtk += 2 * info.count;
+            player.costAtk = info.nextCost;
+        }
+    } else if (type === 'def') {
+        info = getUpgradeInfo(player.costDef, player.gold, buyMultiplier);
+        if (info.count > 0 && player.gold >= info.totalCost) {
+            player.gold -= info.totalCost;
+            player.baseDef += 1 * info.count;
+            player.costDef = info.nextCost;
+        }
+    } else if (type === 'hp') {
+        info = getUpgradeInfo(player.costHp, player.gold, buyMultiplier);
+        if (info.count > 0 && player.gold >= info.totalCost) {
+            player.gold -= info.totalCost;
+            player.baseHp += 10 * info.count;
+            player.currentHp += 10 * info.count;
+            player.costHp = info.nextCost;
+        }
     }
     updateUI();
     saveGame();
@@ -643,16 +719,25 @@ el.btnStay.addEventListener('click', () => {
 });
 
 function autoAction() {
-    if (player.currentHp <= 0) return;
-    if (!enemy) {
-        const maxHp = calculateMaxHp();
-        if (player.currentHp < maxHp * 0.4 && player.gold >= 5) {
-            el.btnHeal.click();
+    try {
+        if (player.currentHp <= 0) return;
+        if (!enemy) {
+            const maxHp = calculateMaxHp();
+            if (player.currentHp < maxHp * 0.4 && player.gold >= 5) {
+                heal();
+            } else {
+                spawnEnemy();
+            }
         } else {
-            spawnEnemy();
+            attack();
         }
-    } else {
-        attack();
+    } catch (e) {
+        log('【AUTO BATTLE ERROR】 ' + e.message, 'damage');
+        console.error(e);
+        clearInterval(autoInterval);
+        isAuto = false;
+        el.btnAuto.checked = false;
+        player.autoBattle = false;
     }
 }
 
@@ -731,18 +816,25 @@ async function fetchRanking() {
             const rank = index + 1;
             let rankStr = `${rank}位`;
             let color = "var(--text-main)";
-            if (rank === 1) { rankStr = '🥇 1位'; color = 'var(--legendary)'; }
-            if (rank === 2) { rankStr = '🥈 2位'; color = '#c0c0c0'; }
-            if (rank === 3) { rankStr = '🥉 3位'; color = '#cd7f32'; }
+            let isMe = (p.name === player.name);
+            
+            if (rank === 1) { rankStr = '1位'; color = 'var(--legendary)'; }
+            else if (rank === 2) { rankStr = '2位'; color = '#c0c0c0'; }
+            else if (rank === 3) { rankStr = '3位'; color = '#cd7f32'; }
             
             const div = document.createElement('div');
             div.className = 'inv-item';
             div.style.borderColor = color;
+            if (isMe) {
+                div.style.background = 'rgba(255, 255, 255, 0.15)';
+                div.style.boxShadow = `0 0 10px ${color}`;
+            }
+            
             div.innerHTML = `
                 <div class="inv-info" style="flex-direction: row; align-items: center; justify-content: space-between; width: 100%; gap: 10px;">
                     <div style="display: flex; align-items: center; gap: 10px; flex: 1; overflow: hidden;">
                         <span style="font-weight: bold; font-size: 1.2rem; color: ${color}; white-space: nowrap; flex-shrink: 0; min-width: 65px;">${rankStr}</span>
-                        <span class="inv-name" style="font-size: 1.1rem; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${p.name}</span>
+                        <span class="inv-name" style="font-size: 1.1rem; color: ${isMe ? '#fff' : '#ccc'}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: ${isMe ? 'bold' : 'normal'};">${p.name}${isMe ? ' (あなた)' : ''}</span>
                     </div>
                     <div style="text-align: right; flex-shrink: 0;">
                         <div style="font-size: 1.1rem; color: var(--gold); font-weight: bold;">Max B${p.maxFloor}F</div>
@@ -751,6 +843,12 @@ async function fetchRanking() {
                 </div>
             `;
             el.rankingList.appendChild(div);
+            
+            if (isMe) {
+                setTimeout(() => {
+                    div.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
         });
     } catch (e) {
         el.rankingList.innerHTML = '<div style="text-align:center; color: #ff5252;">ランキングの取得に失敗しました</div>';
@@ -768,25 +866,30 @@ function submitScore() {
             maxFloor: player.stats.maxFloor,
             lvl: player.lvl
         })
-    }).catch(console.error);
+    }).then(updateMyRank).catch(console.error);
 }
 
-function sendAdminLog(action, details) {
-    if (!player.name) return;
-    fetch('/api/log', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            name: player.name,
-            action: action,
-            details: details
-        })
-    }).catch(e => {}); // Silent fail
-}
-
-// Initial admin login log
-if (player.name) {
-    sendAdminLog('ログイン', `ゲームを起動・再開しました (B${player.floor}F, ゴールド:${formatNumber(player.gold)})`);
+let currentRankStr = '未登録';
+async function updateMyRank() {
+    if (!player.name) {
+        currentRankStr = '未登録';
+        if (el.rank) el.rank.textContent = currentRankStr;
+        return;
+    }
+    try {
+        const res = await fetch('/api/ranking');
+        if (!res.ok) return;
+        const data = await res.json();
+        const index = data.findIndex(p => p.name === player.name);
+        if (index !== -1) {
+            currentRankStr = `${index + 1}位`;
+        } else {
+            currentRankStr = '圏外';
+        }
+        if (el.rank) el.rank.textContent = currentRankStr;
+    } catch (e) {
+        console.error(e);
+    }
 }
 
 // Modal Listeners
@@ -834,7 +937,7 @@ el.btnCloseFloor.addEventListener('click', () => {
 
 function renderFloorList() {
     el.floorList.innerHTML = '';
-    let maxF = player.maxFloor || 1;
+    let maxF = player.stats.maxFloor || 1;
     
     // Add floor 1 button
     const btn1 = document.createElement('button');
@@ -869,8 +972,8 @@ function jumpToFloor(floorNumber) {
     // Hide modal and update UI
     el.modalFloor.style.display = 'none';
     
-    addLog(`B${floorNumber}F に移動した！`, 'system');
-    saveData();
+    log(`B${floorNumber}F に移動した！`, 'system');
+    saveGame();
     updateUI();
 }
 
@@ -891,7 +994,18 @@ el.btnCloseAch.addEventListener('click', () => {
 });
 
 // Initial renders
+document.querySelectorAll('.mult-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.mult-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        const m = e.target.getAttribute('data-mult');
+        buyMultiplier = m === 'MAX' ? 'MAX' : parseInt(m);
+        updateUI();
+    });
+});
+
 updateUI();
+updateMyRank();
 
 // --- Mobile Navigation ---
 const navBtns = document.querySelectorAll('.nav-btn');
@@ -911,13 +1025,3 @@ navBtns.forEach(btn => {
         if (panels[targetId]) panels[targetId].classList.add('active');
     });
 });
-
-// Prevent double-tap to zoom on iOS Safari
-let lastTouchEnd = 0;
-document.addEventListener('touchend', function (event) {
-    const now = (new Date()).getTime();
-    if (now - lastTouchEnd <= 300) {
-        event.preventDefault();
-    }
-    lastTouchEnd = now;
-}, { passive: false });
