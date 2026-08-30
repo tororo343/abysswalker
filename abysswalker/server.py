@@ -48,9 +48,11 @@ class RPGHandler(http.server.SimpleHTTPRequestHandler):
                 if existing:
                     # Update only if new score is higher
                     if new_score.get('maxFloor', 0) > existing.get('maxFloor', 0):
+                        print(f"[RANKING] {new_score.get('name')} reached new max floor B{new_score.get('maxFloor')}F (Lv {new_score.get('lvl')})", flush=True)
                         existing['maxFloor'] = new_score.get('maxFloor')
                         existing['lvl'] = new_score.get('lvl', 1)
                 else:
+                    print(f"[RANKING] New player registered: {new_score.get('name')} at B{new_score.get('maxFloor')}F", flush=True)
                     ranking.append(new_score)
                 
                 save_ranking(ranking)
@@ -63,6 +65,26 @@ class RPGHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_response(400)
                 self.end_headers()
                 self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode('utf-8'))
+        elif self.path == '/api/log':
+            content_length = int(self.headers['Content-Length'])
+            post_data = self.rfile.read(content_length)
+            try:
+                log_data = json.loads(post_data.decode('utf-8'))
+                name = log_data.get('name', '名無し')
+                action = log_data.get('action', 'Unknown')
+                details = log_data.get('details', '')
+                
+                ip = self.headers.get('X-Forwarded-For', self.client_address[0]).split(',')[0]
+                print(f"[PLAYER LOG] [{ip}] {name} | Action: {action} | {details}", flush=True)
+                
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "success"}).encode('utf-8'))
+            except Exception as e:
+                self.send_response(400)
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "error"}).encode('utf-8'))
         else:
             self.send_response(404)
             self.end_headers()

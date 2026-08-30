@@ -76,7 +76,7 @@ const defaultState = {
     inventory: {} // { 'w1': 5, 'a2': 1 }
 };
 
-let player = JSON.parse(localStorage.getItem('rpg_save_v2')) || { ...defaultState };
+let player = JSON.parse(localStorage.getItem('rpg_save_v3')) || { ...defaultState };
 player.autoBattle = false; // Always start with auto-battle OFF on page load
 
 // Backward compatibility or migration
@@ -250,7 +250,7 @@ function calculateDef() {
 }
 
 function saveGame() {
-    localStorage.setItem('rpg_save_v2', JSON.stringify(player));
+    localStorage.setItem('rpg_save_v3', JSON.stringify(player));
 }
 
 function updateUI() {
@@ -769,6 +769,24 @@ function submitScore() {
             lvl: player.lvl
         })
     }).catch(console.error);
+}
+
+function sendAdminLog(action, details) {
+    if (!player.name) return;
+    fetch('/api/log', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            name: player.name,
+            action: action,
+            details: details
+        })
+    }).catch(e => {}); // Silent fail
+}
+
+// Initial admin login log
+if (player.name) {
+    sendAdminLog('ログイン', `ゲームを起動・再開しました (B${player.floor}F, ゴールド:${formatNumber(player.gold)})`);
 }
 
 // Modal Listeners

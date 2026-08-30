@@ -332,7 +332,7 @@ input:checked + .slider:before { transform: translateX(26px); }
     body {
         display: flex;
         flex-direction: column;
-        height: 100dvh;
+        height: 85dvh;
         overflow: hidden;
     }
     
