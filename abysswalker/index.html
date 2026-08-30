@@ -7,7 +7,7 @@
     <!-- AdSense Tag -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2330735378895570" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=12">
+    <link rel="stylesheet" href="style.css?v=13">
 </head>
 <body>
     <div class="background-overlay"></div>
@@ -81,10 +81,10 @@
             </div>
 
             <!-- Mini Screen Buttons -->
-            <button id="btn-inventory" class="action-btn shop-btn" style="margin-top: 15px; width: 100%;">🎒 装備一覧を開く</button>
-            <button id="btn-achievements" class="action-btn shop-btn" style="margin-top: 10px; width: 100%;">🏆 実績一覧を開く</button>
-            <button id="btn-ranking" class="action-btn shop-btn" style="margin-top: 10px; width: 100%; background: linear-gradient(180deg, #ffd700, #f57f17); color: #000;">👑 ランキング</button>
-            <button id="btn-floor-jump" class="action-btn shop-btn" style="margin-top: 10px; width: 100%;">🚪 階層移動 (50階置き)</button>
+            <button id="btn-inventory" class="action-btn shop-btn" style="margin-top: 15px; width: 100%;">装備一覧を開く</button>
+            <button id="btn-achievements" class="action-btn shop-btn" style="margin-top: 10px; width: 100%;">実績一覧を開く</button>
+            <button id="btn-ranking" class="action-btn shop-btn" style="margin-top: 10px; width: 100%; background: linear-gradient(180deg, #ffd700, #f57f17); color: #000;">ランキング</button>
+            <button id="btn-floor-jump" class="action-btn shop-btn" style="margin-top: 10px; width: 100%;">階層移動 (50階置き)</button>
         </section>
 
         <!-- Center Panel: Battle Screen -->
@@ -167,7 +167,7 @@
         <div class="modal-content panel">
             <h2>ランキング (Ranking)</h2>
             <div style="text-align: center; margin-bottom: 15px; font-size: 1.2rem; font-weight: bold;">
-                🏆 あなたの順位: <span id="player-rank" style="color: var(--legendary);">未登録</span>
+                あなたの順位: <span id="player-rank" style="color: var(--legendary);">未登録</span>
             </div>
             <div id="ranking-list" class="inventory-list" style="margin-bottom: 15px;">
                 <!-- Rankings loaded here -->
@@ -194,7 +194,7 @@
     
     <div id="floor-jump-modal" class="modal-overlay" style="display: none;">
         <div class="modal-content panel">
-            <h2>🚪 階層移動</h2>
+            <h2>階層移動</h2>
             <p style="text-align:center; color:var(--text-dim); font-size:0.9rem; margin-bottom:15px;">※到達済みの階層に50階単位で移動できます</p>
             <div id="floor-list" class="inventory-list" style="margin-bottom: 15px;">
                 <!-- Floors loaded here -->
@@ -205,11 +205,11 @@
     
     <!-- Mobile Navigation Bar (hidden on desktop) -->
     <nav class="mobile-nav">
-        <button class="nav-btn" data-target="panel-status">🧑 Status</button>
-        <button class="nav-btn active" data-target="panel-battle">⚔️ Battle</button>
-        <button class="nav-btn" data-target="panel-shop">💰 Shop</button>
+        <button class="nav-btn" data-target="panel-status">Status</button>
+        <button class="nav-btn active" data-target="panel-battle">Battle</button>
+        <button class="nav-btn" data-target="panel-shop">Shop</button>
     </nav>
 
-    <script src="script.js?v=12"></script>
+    <script src="script.js?v=13"></script>
 </body>
 </html>

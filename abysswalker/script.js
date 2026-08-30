@@ -412,7 +412,7 @@ function checkAchievements() {
                 if (ach.reward.includes('DEF')) player.baseDef += parseInt(ach.reward.split('+')[1]);
             }
 
-            log(`🏆 実績解除: ${ach.name} (${ach.reward})`, 'system');
+            log(`実績解除: ${ach.name} (${ach.reward})`, 'system');
             unlockedAny = true;
         }
     });
@@ -438,7 +438,7 @@ function spawnEnemy() {
             gold: Math.floor(10 * scale * 20),
             isBoss: true
         };
-        log(`🚨 警告：階層の主が姿を現した...！`, 'enemy-attack');
+        log(`警告：深淵の主が姿を現した...！`, 'enemy-attack');
     } else {
         const template = enemies[Math.floor(Math.random() * enemies.length)];
         enemy = {
@@ -511,7 +511,7 @@ function rollDrops(isBoss = false) {
             if (item.rarity === 'legendary') logType = 'legendary-drop';
             if (item.rarity === 'mythic') logType = 'mythic-drop';
             
-            log(`✨ 【${item.rarity.toUpperCase()}】${item.name} をドロップした！`, logType);
+            log(`${item.rarity.toUpperCase()} ${item.name} をドロップした！`, logType);
             dropped = true;
         }
     });
@@ -780,9 +780,9 @@ async function fetchRanking() {
             let color = "var(--text-main)";
             let isMe = (p.name === player.name);
             
-            if (rank === 1) { rankStr = '🥇 1位'; color = 'var(--legendary)'; }
-            else if (rank === 2) { rankStr = '🥈 2位'; color = '#c0c0c0'; }
-            else if (rank === 3) { rankStr = '🥉 3位'; color = '#cd7f32'; }
+            if (rank === 1) { rankStr = '1位'; color = 'var(--legendary)'; }
+            else if (rank === 2) { rankStr = '2位'; color = '#c0c0c0'; }
+            else if (rank === 3) { rankStr = '3位'; color = '#cd7f32'; }
             
             const div = document.createElement('div');
             div.className = 'inv-item';
