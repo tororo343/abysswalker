@@ -64,6 +64,9 @@ const defaultState = {
     costAtk: 10,
     costDef: 10,
     costHp: 20,
+    inventory: [],
+    autoBattle: false,
+    stayOnFloor: false,
     stats: {
         kills: 0,
         maxFloor: 1,
@@ -80,6 +83,9 @@ if (player.bonusHpPct === undefined) {
     player.bonusHpPct = 0;
     player.bonusAtkPct = 0;
     player.bonusDefPct = 0;
+}
+if (player.stayOnFloor === undefined) {
+    player.stayOnFloor = false;
 }
 if (!player.inventory) {
     player = { ...defaultState }; // Force reset for major architecture change
@@ -119,6 +125,7 @@ const el = {
     btnAttack: document.getElementById('btn-attack'),
     btnHeal: document.getElementById('btn-heal'),
     btnAuto: document.getElementById('auto-btn'),
+    btnStay: document.getElementById('stay-btn'), // New element
     
     costAtk: document.getElementById('cost-atk'),
     costDef: document.getElementById('cost-def'),
@@ -215,7 +222,11 @@ function updateUI() {
     el.gold.textContent = player.gold;
     
     const expReq = getExpReq();
-    el.expBar.style.width = `${(player.exp / expReq) * 100}%`;
+    if (el.expBar) el.expBar.style.width = `${(player.exp / expReq) * 100}%`;
+    
+    if (el.btnAuto) el.btnAuto.checked = player.autoBattle;
+    if (el.btnStay) el.btnStay.checked = player.stayOnFloor;
+    
     if (el.exp && el.reqExp) {
         el.exp.textContent = player.exp;
         el.reqExp.textContent = expReq;
@@ -419,7 +430,10 @@ function winBattle() {
     
     player.exp += enemy.exp;
     player.gold += enemy.gold;
-    player.floor++;
+    
+    if (!player.stayOnFloor) {
+        player.floor++;
+    }
     
     player.stats.kills++;
     if (player.floor > player.stats.maxFloor) player.stats.maxFloor = player.floor;
@@ -516,6 +530,8 @@ el.btnUpgHp.addEventListener('click', () => buyUpgrade('hp'));
 
 function toggleAuto() {
     isAuto = el.btnAuto.checked;
+    player.autoBattle = isAuto;
+    saveGame();
     if (isAuto) {
         log("【AUTO BATTLE START】", 'system');
         autoInterval = setInterval(autoAction, 800);
@@ -525,6 +541,11 @@ function toggleAuto() {
     }
     updateUI();
 }
+
+el.btnStay.addEventListener('change', (e) => {
+    player.stayOnFloor = e.target.checked;
+    saveGame();
+});
 
 function autoAction() {
     if (player.currentHp <= 0) return;
