@@ -79,26 +79,20 @@ const defaultState = {
 let player = JSON.parse(localStorage.getItem('rpg_save_v3')) || { ...defaultState };
 player.autoBattle = false; // Always start with auto-battle OFF on page load
 
-// Backward compatibility or migration
-if (player.bonusHpPct === undefined) {
-    player.bonusHpPct = 0;
-    player.bonusAtkPct = 0;
-    player.bonusDefPct = 0;
+// Robust migration: Ensure all default properties exist
+for (const key in defaultState) {
+    if (player[key] === undefined) {
+        player[key] = JSON.parse(JSON.stringify(defaultState[key]));
+    }
 }
-if (player.baseAtk === undefined || isNaN(player.baseAtk)) {
-    player.baseAtk = 10;
-    player.baseDef = 5;
-    player.baseHp = 100;
-}
-if (isNaN(player.currentHp)) {
-    player.currentHp = 100;
-}
-if (player.stayOnFloor === undefined) {
-    player.stayOnFloor = false;
-}
-if (!player.inventory) {
-    player = { ...defaultState }; // Force reset for major architecture change
-    localStorage.removeItem('rpg_save'); // clear old save if it exists
+// Fix corrupted NaN values
+if (isNaN(player.baseAtk)) player.baseAtk = 10;
+if (isNaN(player.baseDef)) player.baseDef = 5;
+if (isNaN(player.baseHp)) player.baseHp = 100;
+if (isNaN(player.currentHp)) player.currentHp = 100;
+
+if (!player.inventory || Array.isArray(player.inventory)) {
+    player.inventory = {};
 }
 if (player.currentHp > calculateMaxHp()) player.currentHp = calculateMaxHp();
 
