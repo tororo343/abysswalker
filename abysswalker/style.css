@@ -363,7 +363,7 @@ input:checked + .slider:before { transform: translateX(26px); }
         align-items: stretch;
     }
 
-    .panel {
+    .game-container > .panel {
         display: none;
         flex: 1;
         overflow-y: auto;
@@ -374,7 +374,7 @@ input:checked + .slider:before { transform: translateX(26px); }
         min-height: 0;
     }
 
-    .panel.active {
+    .game-container > .panel.active {
         display: flex;
     }
 
