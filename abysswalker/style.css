@@ -14,7 +14,12 @@
     --rare: #4ea8de;
     --epic: #b142f5;
     --legendary: #ffd700;
+    --legendary: #ffd700;
     --mythic: #ff0055;
+}
+
+html {
+    font-size: 80%;
 }
 
 * {
@@ -230,7 +235,7 @@ input:checked + .slider:before { transform: translateX(26px); }
 
 .action-btn {
     flex: 1;
-    padding: min(15px, 2dvh);
+    padding: min(12px, 1.6dvh);
     border: none;
     border-radius: 5px;
     font-weight: bold;
@@ -418,12 +423,5 @@ input:checked + .slider:before { transform: translateX(26px); }
         color: #fff;
         background: rgba(78, 168, 222, 0.2);
         border-top: 3px solid var(--rare);
-    }
-}
-
-/* iPad Landscape specific height fix */
-@media (min-width: 851px) and (max-width: 1366px) and (orientation: landscape) {
-    body {
-        height: 85dvh;
     }
 }
