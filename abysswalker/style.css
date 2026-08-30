@@ -343,6 +343,10 @@ input:checked + .slider:before { transform: translateX(26px); }
         white-space: nowrap;
     }
     
+    .ad-container {
+        display: none !important;
+    }
+    
     .auto-toggle {
         gap: 5px;
     }
