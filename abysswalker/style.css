@@ -286,11 +286,7 @@ input:checked + .slider:before { transform: translateX(26px); }
 }
 
 .ad-container {
-    width: 100%;
-    background: rgba(255,255,255,0.05);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: none !important;
 }
 .sidebar-ad { 
     margin-top: auto; 
