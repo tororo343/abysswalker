@@ -94,6 +94,49 @@ if (!player.inventory) {
 }
 if (player.currentHp > calculateMaxHp()) player.currentHp = calculateMaxHp();
 
+if (!player.refunded101) {
+    const upgAtkCount = Math.max(0, (player.baseAtk - 10) / 2);
+    const upgDefCount = Math.max(0, (player.baseDef - 5) / 1);
+    const upgHpCount = Math.max(0, (player.baseHp - 100) / 10);
+    
+    function simOld(base, count) {
+        let t = 0, c = base;
+        for(let i=0; i<count; i++){ t+=c; c=Math.floor(c*1.5); }
+        return t;
+    }
+    function simNew(base, count) {
+        let t = 0, c = base;
+        for(let i=0; i<count; i++){ t+=c; c=Math.ceil(c*1.01); }
+        return {t, c};
+    }
+    
+    let refund = 0;
+    
+    if (upgAtkCount > 0) {
+        const oldT = simOld(10, upgAtkCount);
+        const newD = simNew(10, upgAtkCount);
+        if (oldT > newD.t) refund += (oldT - newD.t);
+        player.costAtk = newD.c;
+    } else { player.costAtk = 10; }
+    
+    if (upgDefCount > 0) {
+        const oldT = simOld(10, upgDefCount);
+        const newD = simNew(10, upgDefCount);
+        if (oldT > newD.t) refund += (oldT - newD.t);
+        player.costDef = newD.c;
+    } else { player.costDef = 10; }
+    
+    if (upgHpCount > 0) {
+        const oldT = simOld(20, upgHpCount);
+        const newD = simNew(20, upgHpCount);
+        if (oldT > newD.t) refund += (oldT - newD.t);
+        player.costHp = newD.c;
+    } else { player.costHp = 20; }
+    
+    player.gold += refund;
+    player.refunded101 = true;
+}
+
 let enemy = null;
 let isAuto = false;
 let autoInterval = null;
@@ -518,16 +561,16 @@ function buyUpgrade(type) {
     if (type === 'atk' && player.gold >= player.costAtk) {
         player.gold -= player.costAtk;
         player.baseAtk += 2;
-        player.costAtk = Math.ceil(player.costAtk * 1.15);
+        player.costAtk = Math.ceil(player.costAtk * 1.01);
     } else if (type === 'def' && player.gold >= player.costDef) {
         player.gold -= player.costDef;
         player.baseDef += 1;
-        player.costDef = Math.ceil(player.costDef * 1.15);
+        player.costDef = Math.ceil(player.costDef * 1.01);
     } else if (type === 'hp' && player.gold >= player.costHp) {
         player.gold -= player.costHp;
         player.baseHp += 10;
         player.currentHp += 10;
-        player.costHp = Math.ceil(player.costHp * 1.15);
+        player.costHp = Math.ceil(player.costHp * 1.01);
     }
     updateUI();
     saveGame();
