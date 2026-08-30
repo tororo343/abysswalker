@@ -311,7 +311,7 @@ function updateUI() {
 }
 
 function getExpReq() {
-    return Math.floor(100 * Math.pow(1.5, player.lvl - 1));
+    return Math.floor(100 * Math.pow(1.01, player.lvl - 1));
 }
 
 function log(msg, type = 'system') {
@@ -743,18 +743,25 @@ async function fetchRanking() {
             const rank = index + 1;
             let rankStr = `${rank}位`;
             let color = "var(--text-main)";
+            let isMe = (p.name === player.name);
+            
             if (rank === 1) { rankStr = '🥇 1位'; color = 'var(--legendary)'; }
-            if (rank === 2) { rankStr = '🥈 2位'; color = '#c0c0c0'; }
-            if (rank === 3) { rankStr = '🥉 3位'; color = '#cd7f32'; }
+            else if (rank === 2) { rankStr = '🥈 2位'; color = '#c0c0c0'; }
+            else if (rank === 3) { rankStr = '🥉 3位'; color = '#cd7f32'; }
             
             const div = document.createElement('div');
             div.className = 'inv-item';
             div.style.borderColor = color;
+            if (isMe) {
+                div.style.background = 'rgba(255, 255, 255, 0.15)';
+                div.style.boxShadow = `0 0 10px ${color}`;
+            }
+            
             div.innerHTML = `
                 <div class="inv-info" style="flex-direction: row; align-items: center; justify-content: space-between; width: 100%; gap: 10px;">
                     <div style="display: flex; align-items: center; gap: 10px; flex: 1; overflow: hidden;">
                         <span style="font-weight: bold; font-size: 1.2rem; color: ${color}; white-space: nowrap; flex-shrink: 0; min-width: 65px;">${rankStr}</span>
-                        <span class="inv-name" style="font-size: 1.1rem; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${p.name}</span>
+                        <span class="inv-name" style="font-size: 1.1rem; color: ${isMe ? '#fff' : '#ccc'}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: ${isMe ? 'bold' : 'normal'};">${p.name}${isMe ? ' (あなた)' : ''}</span>
                     </div>
                     <div style="text-align: right; flex-shrink: 0;">
                         <div style="font-size: 1.1rem; color: var(--gold); font-weight: bold;">Max B${p.maxFloor}F</div>
@@ -763,6 +770,12 @@ async function fetchRanking() {
                 </div>
             `;
             el.rankingList.appendChild(div);
+            
+            if (isMe) {
+                setTimeout(() => {
+                    div.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
         });
     } catch (e) {
         el.rankingList.innerHTML = '<div style="text-align:center; color: #ff5252;">ランキングの取得に失敗しました</div>';
