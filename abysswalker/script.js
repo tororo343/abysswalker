@@ -85,6 +85,14 @@ if (player.bonusHpPct === undefined) {
     player.bonusAtkPct = 0;
     player.bonusDefPct = 0;
 }
+if (player.baseAtk === undefined || isNaN(player.baseAtk)) {
+    player.baseAtk = 10;
+    player.baseDef = 5;
+    player.baseHp = 100;
+}
+if (isNaN(player.currentHp)) {
+    player.currentHp = 100;
+}
 if (player.stayOnFloor === undefined) {
     player.stayOnFloor = false;
 }
