@@ -543,10 +543,47 @@ function die() {
     saveGame();
 }
 
-el.btnExplore.addEventListener('click', spawnEnemy);
-el.btnAttack.addEventListener('click', attack);
+function setupContinuousButton(btn, action, continuous = false) {
+    let intervalId = null;
+    let timeoutId = null;
+    let isHeld = false;
 
-el.btnHeal.addEventListener('click', () => {
+    const start = (e) => {
+        if (e.button && e.button !== 0) return;
+        if (btn.disabled) return;
+        e.preventDefault(); 
+        action();
+        
+        if (continuous) {
+            isHeld = true;
+            timeoutId = setTimeout(() => {
+                if (isHeld) {
+                    intervalId = setInterval(() => {
+                        if (!btn.disabled) action();
+                        else end();
+                    }, 100);
+                }
+            }, 400);
+        }
+    };
+
+    const end = () => {
+        isHeld = false;
+        clearTimeout(timeoutId);
+        clearInterval(intervalId);
+    };
+
+    btn.addEventListener('pointerdown', start);
+    btn.addEventListener('pointerup', end);
+    btn.addEventListener('pointerleave', end);
+    btn.addEventListener('pointercancel', end);
+    btn.addEventListener('contextmenu', e => e.preventDefault());
+}
+
+setupContinuousButton(el.btnExplore, spawnEnemy, false);
+setupContinuousButton(el.btnAttack, attack, true);
+
+setupContinuousButton(el.btnHeal, () => {
     const maxHp = calculateMaxHp();
     if (player.gold >= 5 && player.currentHp < maxHp && !enemy) {
         player.gold -= 5;
@@ -555,7 +592,7 @@ el.btnHeal.addEventListener('click', () => {
         updateUI();
         saveGame();
     }
-});
+}, true);
 
 function buyUpgrade(type) {
     if (type === 'atk' && player.gold >= player.costAtk) {
@@ -576,9 +613,9 @@ function buyUpgrade(type) {
     saveGame();
 }
 
-el.btnUpgAtk.addEventListener('click', () => buyUpgrade('atk'));
-el.btnUpgDef.addEventListener('click', () => buyUpgrade('def'));
-el.btnUpgHp.addEventListener('click', () => buyUpgrade('hp'));
+setupContinuousButton(el.btnUpgAtk, () => buyUpgrade('atk'), true);
+setupContinuousButton(el.btnUpgDef, () => buyUpgrade('def'), true);
+setupContinuousButton(el.btnUpgHp, () => buyUpgrade('hp'), true);
 
 function toggleAuto() {
     isAuto = el.btnAuto.checked;
