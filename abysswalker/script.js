@@ -587,10 +587,7 @@ function setupContinuousButton(btn, action, continuous = false) {
     btn.addEventListener('contextmenu', e => e.preventDefault());
 }
 
-setupContinuousButton(el.btnExplore, spawnEnemy, false);
-setupContinuousButton(el.btnAttack, attack, true);
-
-setupContinuousButton(el.btnHeal, () => {
+function heal() {
     const maxHp = calculateMaxHp();
     if (player.gold >= 5 && player.currentHp < maxHp && !enemy) {
         player.gold -= 5;
@@ -599,7 +596,11 @@ setupContinuousButton(el.btnHeal, () => {
         updateUI();
         saveGame();
     }
-}, true);
+}
+
+setupContinuousButton(el.btnExplore, spawnEnemy, false);
+setupContinuousButton(el.btnAttack, attack, true);
+setupContinuousButton(el.btnHeal, heal, true);
 
 function buyUpgrade(type) {
     if (type === 'atk' && player.gold >= player.costAtk) {
@@ -645,16 +646,25 @@ el.btnStay.addEventListener('click', () => {
 });
 
 function autoAction() {
-    if (player.currentHp <= 0) return;
-    if (!enemy) {
-        const maxHp = calculateMaxHp();
-        if (player.currentHp < maxHp * 0.4 && player.gold >= 5) {
-            heal();
+    try {
+        if (player.currentHp <= 0) return;
+        if (!enemy) {
+            const maxHp = calculateMaxHp();
+            if (player.currentHp < maxHp * 0.4 && player.gold >= 5) {
+                heal();
+            } else {
+                spawnEnemy();
+            }
         } else {
-            spawnEnemy();
+            attack();
         }
-    } else {
-        attack();
+    } catch (e) {
+        log('【AUTO BATTLE ERROR】 ' + e.message, 'damage');
+        console.error(e);
+        clearInterval(autoInterval);
+        isAuto = false;
+        el.btnAuto.checked = false;
+        player.autoBattle = false;
     }
 }
 
