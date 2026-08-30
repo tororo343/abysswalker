@@ -258,12 +258,17 @@ function updateUI() {
     if (el.maxFloor) el.maxFloor.textContent = player.stats.maxFloor;
     if (el.lvl) el.lvl.textContent = player.lvl;
     
+    function formatNumber(num) {
+        if (num >= 100000) return num.toExponential(4);
+        return Math.floor(num).toLocaleString('en-US'); // Optionally format with commas
+    }
+    
     const maxHp = calculateMaxHp();
-    el.hp.textContent = player.currentHp;
-    el.maxHp.textContent = maxHp;
-    el.atk.textContent = calculateAtk();
-    el.def.textContent = calculateDef();
-    el.gold.textContent = player.gold;
+    el.hp.textContent = formatNumber(player.currentHp);
+    el.maxHp.textContent = formatNumber(maxHp);
+    el.atk.textContent = formatNumber(calculateAtk());
+    el.def.textContent = formatNumber(calculateDef());
+    el.gold.textContent = formatNumber(player.gold);
     
     const expReq = getExpReq();
     if (el.expBar) el.expBar.style.width = `${(player.exp / expReq) * 100}%`;
@@ -280,14 +285,14 @@ function updateUI() {
     }
     
     if (el.exp && el.reqExp) {
-        el.exp.textContent = player.exp;
-        el.reqExp.textContent = expReq;
+        el.exp.textContent = formatNumber(player.exp);
+        el.reqExp.textContent = formatNumber(expReq);
     }
     el.hpBar.style.width = `${(Math.max(0, player.currentHp) / maxHp) * 100}%`;
     
-    el.costAtk.textContent = player.costAtk;
-    el.costDef.textContent = player.costDef;
-    el.costHp.textContent = player.costHp;
+    el.costAtk.textContent = formatNumber(player.costAtk);
+    el.costDef.textContent = formatNumber(player.costDef);
+    el.costHp.textContent = formatNumber(player.costHp);
     
     el.btnUpgAtk.disabled = player.gold < player.costAtk;
     el.btnUpgDef.disabled = player.gold < player.costDef;
