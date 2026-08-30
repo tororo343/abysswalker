@@ -518,16 +518,16 @@ function buyUpgrade(type) {
     if (type === 'atk' && player.gold >= player.costAtk) {
         player.gold -= player.costAtk;
         player.baseAtk += 2;
-        player.costAtk = Math.floor(player.costAtk * 1.5);
+        player.costAtk = Math.ceil(player.costAtk * 1.15);
     } else if (type === 'def' && player.gold >= player.costDef) {
         player.gold -= player.costDef;
         player.baseDef += 1;
-        player.costDef = Math.floor(player.costDef * 1.5);
+        player.costDef = Math.ceil(player.costDef * 1.15);
     } else if (type === 'hp' && player.gold >= player.costHp) {
         player.gold -= player.costHp;
         player.baseHp += 10;
         player.currentHp += 10;
-        player.costHp = Math.floor(player.costHp * 1.5);
+        player.costHp = Math.ceil(player.costHp * 1.15);
     }
     updateUI();
     saveGame();

@@ -328,7 +328,7 @@ input:checked + .slider:before { transform: translateX(26px); }
 
 /* Removed 900px media query to simplify layout */
 
-@media (max-width: 768px) {
+@media (max-width: 850px), (max-width: 1024px) and (orientation: portrait) {
     body {
         display: flex;
         flex-direction: column;
