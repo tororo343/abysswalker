@@ -166,6 +166,7 @@ if (!player.refunded101) {
 let enemy = null;
 let isAuto = false;
 let autoInterval = null;
+let buyMultiplier = 1;
 
 // --- DOM Elements ---
 const el = {
@@ -317,13 +318,17 @@ function updateUI() {
     }
     el.hpBar.style.width = `${(Math.max(0, player.currentHp) / maxHp) * 100}%`;
     
-    el.costAtk.textContent = formatNumber(player.costAtk);
-    el.costDef.textContent = formatNumber(player.costDef);
-    el.costHp.textContent = formatNumber(player.costHp);
+    let atkInfo = getUpgradeInfo(player.costAtk, player.gold, buyMultiplier);
+    let defInfo = getUpgradeInfo(player.costDef, player.gold, buyMultiplier);
+    let hpInfo  = getUpgradeInfo(player.costHp, player.gold, buyMultiplier);
+
+    el.costAtk.textContent = formatNumber(atkInfo.totalCost) + (atkInfo.count > 1 ? ` (+${atkInfo.count})` : '');
+    el.costDef.textContent = formatNumber(defInfo.totalCost) + (defInfo.count > 1 ? ` (+${defInfo.count})` : '');
+    el.costHp.textContent  = formatNumber(hpInfo.totalCost)  + (hpInfo.count > 1 ? ` (+${hpInfo.count})` : '');
     
-    el.btnUpgAtk.disabled = player.gold < player.costAtk;
-    el.btnUpgDef.disabled = player.gold < player.costDef;
-    el.btnUpgHp.disabled = player.gold < player.costHp;
+    el.btnUpgAtk.disabled = player.gold < atkInfo.totalCost || atkInfo.count === 0;
+    el.btnUpgDef.disabled = player.gold < defInfo.totalCost || defInfo.count === 0;
+    el.btnUpgHp.disabled  = player.gold < hpInfo.totalCost || hpInfo.count === 0;
     el.btnHeal.disabled = player.gold < 5 || player.currentHp >= maxHp || enemy !== null;
 
     if (enemy) {
@@ -637,20 +642,53 @@ setupContinuousButton(el.btnExplore, spawnEnemy, false);
 setupContinuousButton(el.btnAttack, attack, true);
 setupContinuousButton(el.btnHeal, heal, true);
 
+function getUpgradeInfo(baseCost, gold, mult) {
+    let count = 0;
+    let totalCost = 0;
+    let currentCost = baseCost;
+
+    if (mult === 'MAX') {
+        while (gold >= totalCost + currentCost) {
+            totalCost += currentCost;
+            currentCost = Math.ceil(currentCost * 1.01);
+            count++;
+            if (count > 99999) break;
+        }
+        if (count === 0) totalCost = baseCost; // for UI display when poor
+    } else {
+        for (let i = 0; i < mult; i++) {
+            totalCost += currentCost;
+            currentCost = Math.ceil(currentCost * 1.01);
+        }
+        count = mult;
+    }
+    return { count, totalCost, nextCost: currentCost };
+}
+
 function buyUpgrade(type) {
-    if (type === 'atk' && player.gold >= player.costAtk) {
-        player.gold -= player.costAtk;
-        player.baseAtk += 2;
-        player.costAtk = Math.ceil(player.costAtk * 1.01);
-    } else if (type === 'def' && player.gold >= player.costDef) {
-        player.gold -= player.costDef;
-        player.baseDef += 1;
-        player.costDef = Math.ceil(player.costDef * 1.01);
-    } else if (type === 'hp' && player.gold >= player.costHp) {
-        player.gold -= player.costHp;
-        player.baseHp += 10;
-        player.currentHp += 10;
-        player.costHp = Math.ceil(player.costHp * 1.01);
+    let info;
+    if (type === 'atk') {
+        info = getUpgradeInfo(player.costAtk, player.gold, buyMultiplier);
+        if (info.count > 0 && player.gold >= info.totalCost) {
+            player.gold -= info.totalCost;
+            player.baseAtk += 2 * info.count;
+            player.costAtk = info.nextCost;
+        }
+    } else if (type === 'def') {
+        info = getUpgradeInfo(player.costDef, player.gold, buyMultiplier);
+        if (info.count > 0 && player.gold >= info.totalCost) {
+            player.gold -= info.totalCost;
+            player.baseDef += 1 * info.count;
+            player.costDef = info.nextCost;
+        }
+    } else if (type === 'hp') {
+        info = getUpgradeInfo(player.costHp, player.gold, buyMultiplier);
+        if (info.count > 0 && player.gold >= info.totalCost) {
+            player.gold -= info.totalCost;
+            player.baseHp += 10 * info.count;
+            player.currentHp += 10 * info.count;
+            player.costHp = info.nextCost;
+        }
     }
     updateUI();
     saveGame();
@@ -899,7 +937,7 @@ el.btnCloseFloor.addEventListener('click', () => {
 
 function renderFloorList() {
     el.floorList.innerHTML = '';
-    let maxF = player.maxFloor || 1;
+    let maxF = player.stats.maxFloor || 1;
     
     // Add floor 1 button
     const btn1 = document.createElement('button');
@@ -934,8 +972,8 @@ function jumpToFloor(floorNumber) {
     // Hide modal and update UI
     el.modalFloor.style.display = 'none';
     
-    addLog(`B${floorNumber}F に移動した！`, 'system');
-    saveData();
+    log(`B${floorNumber}F に移動した！`, 'system');
+    saveGame();
     updateUI();
 }
 
@@ -956,6 +994,16 @@ el.btnCloseAch.addEventListener('click', () => {
 });
 
 // Initial renders
+document.querySelectorAll('.mult-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.mult-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        const m = e.target.getAttribute('data-mult');
+        buyMultiplier = m === 'MAX' ? 'MAX' : parseInt(m);
+        updateUI();
+    });
+});
+
 updateUI();
 updateMyRank();
 
