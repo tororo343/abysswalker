@@ -893,13 +893,3 @@ navBtns.forEach(btn => {
         if (panels[targetId]) panels[targetId].classList.add('active');
     });
 });
-
-// Prevent double-tap to zoom on iOS Safari
-let lastTouchEnd = 0;
-document.addEventListener('touchend', function (event) {
-    const now = (new Date()).getTime();
-    if (now - lastTouchEnd <= 300) {
-        event.preventDefault();
-    }
-    lastTouchEnd = now;
-}, { passive: false });

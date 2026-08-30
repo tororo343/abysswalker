@@ -247,6 +247,7 @@ input:checked + .slider:before { transform: translateX(26px); }
     touch-action: manipulation !important;
     user-select: none;
     -webkit-user-select: none;
+    -webkit-touch-callout: none;
 }
 .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .action-btn:active:not(:disabled) { transform: scale(0.95); }
