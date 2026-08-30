@@ -21,12 +21,26 @@ const equipData = [
     { id: 'm1', name: '創世の剣', desc: 'ATK+50000', type: 'atk', val: 50000, rarity: 'mythic', prob: 0.00001 },
     { id: 'm2', name: 'イージスの盾', desc: 'DEF+50000', type: 'def', val: 50000, rarity: 'mythic', prob: 0.00001 },
     { id: 'm3', name: '世界樹の指輪', desc: 'MaxHP+200000', type: 'hp', val: 200000, rarity: 'mythic', prob: 0.00001 },
-    { id: 'm4', name: '破壊神の鎌', desc: 'ATK+100000', type: 'atk', val: 100000, rarity: 'mythic', prob: 0.000005 },
+    { id: 'm4', name: '破壊神の鎧', desc: 'ATK+100000', type: 'atk', val: 100000, rarity: 'mythic', prob: 0.000005 },
     { id: 'm5', name: '全能のオーブ', desc: 'MaxHP+500000', type: 'hp', val: 500000, rarity: 'mythic', prob: 0.000005 },
     { id: 'p1', name: '狂戦士の証', desc: 'ATK+10%', type: 'atk%', val: 10, rarity: 'epic', prob: 0.005 },
-    { id: 'p2', name: '鉄壁の紋章', desc: 'DEF+10%', type: 'def%', val: 10, rarity: 'epic', prob: 0.005 },
+    { id: 'p2', name: '鉄壁の誓約', desc: 'DEF+10%', type: 'def%', val: 10, rarity: 'epic', prob: 0.005 },
     { id: 'p3', name: '生命の杯', desc: 'MaxHP+10%', type: 'hp%', val: 10, rarity: 'epic', prob: 0.005 },
-    { id: 'm6', name: '神魔の魂', desc: 'ATK+100%', type: 'atk%', val: 100, rarity: 'mythic', prob: 0.00001 }
+    { id: 'm6', name: '神魔の剣', desc: 'ATK+100%', type: 'atk%', val: 100, rarity: 'mythic', prob: 0.00001 },
+    { id: 'w5', name: '竜殺しの大剣', desc: 'ATK+15000', type: 'atk', val: 15000, rarity: 'epic', prob: 0.0005 },
+    { id: 'w6', name: '星砕きの槌', desc: 'ATK+150000', type: 'atk', val: 150000, rarity: 'legendary', prob: 0.00005 },
+    { id: 'w7', name: '銀河の剣', desc: 'ATK+1000000', type: 'atk', val: 1000000, rarity: 'mythic', prob: 0.000002 },
+    { id: 'a5', name: '竜鱗の鎧', desc: 'DEF+15000', type: 'def', val: 15000, rarity: 'epic', prob: 0.0005 },
+    { id: 'a6', name: '星光の盾', desc: 'DEF+150000', type: 'def', val: 150000, rarity: 'legendary', prob: 0.00005 },
+    { id: 'a7', name: '銀河の壁', desc: 'DEF+1000000', type: 'def', val: 1000000, rarity: 'mythic', prob: 0.000002 },
+    { id: 'h3', name: '竜血の結晶', desc: 'MaxHP+60000', type: 'hp', val: 60000, rarity: 'epic', prob: 0.0005 },
+    { id: 'h4', name: '星明の霊薬', desc: 'MaxHP+600000', type: 'hp', val: 600000, rarity: 'legendary', prob: 0.00005 },
+    { id: 'h5', name: '銀河の魂', desc: 'MaxHP+4000000', type: 'hp', val: 4000000, rarity: 'mythic', prob: 0.000002 },
+    { id: 'p4', name: '狂王の王冠', desc: 'ATK+50%', type: 'atk%', val: 50, rarity: 'legendary', prob: 0.0005 },
+    { id: 'p5', name: '鉄壁の誓い', desc: 'DEF+50%', type: 'def%', val: 50, rarity: 'legendary', prob: 0.0005 },
+    { id: 'p6', name: '不死の呪い', desc: 'MaxHP+50%', type: 'hp%', val: 50, rarity: 'legendary', prob: 0.0005 },
+    { id: 'm7', name: '神魔の盾', desc: 'DEF+100%', type: 'def%', val: 100, rarity: 'mythic', prob: 0.00001 },
+    { id: 'm8', name: '神魔の血', desc: 'MaxHP+100%', type: 'hp%', val: 100, rarity: 'mythic', prob: 0.00001 }
 ];
 
 const achData = [
@@ -44,7 +58,17 @@ const achData = [
     { id: 'die10', name: '死に戻り', desc: '10回死亡する', reward: '基本DEF+50', req: 'die1' },
     { id: 'mythic1', name: '神話の始まり', desc: '神話(Mythic)装備を1種類手に入れる', reward: '基本ATK+5000', req: null },
     { id: 'mythic3', name: '神々の加護', desc: '神話(Mythic)装備を3種類手に入れる', reward: '基本MaxHP+50000', req: 'mythic1' },
-    { id: 'mythic5', name: '世界の覇者', desc: '神話(Mythic)装備を全5種類手に入れる', reward: '基本ATK+50000', req: 'mythic3' }
+    { id: 'mythic5', name: '世界の観測者', desc: '神話(Mythic)装備を全5種類手に入れる', reward: '基本ATK+50000', req: 'mythic3' },
+    { id: 'kill50000', name: '死神', desc: '敵を50000体倒す', reward: 'DEF+50%', req: 'kill10000' },
+    { id: 'kill100000', name: '殲滅者', desc: '敵を100000体倒す', reward: 'MaxHP+100%', req: 'kill50000' },
+    { id: 'floor300', name: '絶望の淵', desc: '300階層に到達する', reward: '基本ATK+10000', req: 'floor200' },
+    { id: 'floor400', name: '虚無', desc: '400階層に到達する', reward: '基本DEF+10000', req: 'floor300' },
+    { id: 'floor500', name: '深淵の主', desc: '500階層に到達する', reward: '基本MaxHP+100000', req: 'floor400' },
+    { id: 'lvl100', name: '覚醒者', desc: 'レベル100になる', reward: '基本ATK+5000', req: 'lvl50' },
+    { id: 'lvl200', name: '超越者', desc: 'レベル200になる', reward: '基本DEF+5000', req: 'lvl100' },
+    { id: 'lvl500', name: '神の領域', desc: 'レベル500になる', reward: '基本MaxHP+50000', req: 'lvl200' },
+    { id: 'die50', name: '不死鳥', desc: '50回死亡する', reward: '基本DEF+500', req: 'die10' },
+    { id: 'die100', name: '死を克服せし者', desc: '100回死亡する', reward: '基本DEF+5000', req: 'die50' }
 ];
 
 // --- State Management ---
@@ -156,6 +180,7 @@ const el = {
     floor: document.getElementById('player-floor'),
     maxFloor: document.getElementById('player-max-floor'),
     lvl: document.getElementById('player-lvl'),
+    rank: document.getElementById('player-rank'),
     atk: document.getElementById('player-atk'),
     def: document.getElementById('player-def'),
     gold: document.getElementById('player-gold'),
@@ -346,14 +371,24 @@ function checkAchievements() {
             case 'kill100': conditionMet = player.stats.kills >= 100; break;
             case 'kill1000': conditionMet = player.stats.kills >= 1000; break;
             case 'kill10000': conditionMet = player.stats.kills >= 10000; break;
+            case 'kill50000': conditionMet = player.stats.kills >= 50000; break;
+            case 'kill100000': conditionMet = player.stats.kills >= 100000; break;
             case 'floor10': conditionMet = player.stats.maxFloor >= 10; break;
             case 'floor50': conditionMet = player.stats.maxFloor >= 50; break;
             case 'floor100': conditionMet = player.stats.maxFloor >= 100; break;
             case 'floor200': conditionMet = player.stats.maxFloor >= 200; break;
+            case 'floor300': conditionMet = player.stats.maxFloor >= 300; break;
+            case 'floor400': conditionMet = player.stats.maxFloor >= 400; break;
+            case 'floor500': conditionMet = player.stats.maxFloor >= 500; break;
             case 'lvl10': conditionMet = player.lvl >= 10; break;
             case 'lvl50': conditionMet = player.lvl >= 50; break;
+            case 'lvl100': conditionMet = player.lvl >= 100; break;
+            case 'lvl200': conditionMet = player.lvl >= 200; break;
+            case 'lvl500': conditionMet = player.lvl >= 500; break;
             case 'die1': conditionMet = player.stats.deaths >= 1; break;
             case 'die10': conditionMet = player.stats.deaths >= 10; break;
+            case 'die50': conditionMet = player.stats.deaths >= 50; break;
+            case 'die100': conditionMet = player.stats.deaths >= 100; break;
             case 'mythic1': conditionMet = getMythicCount() >= 1; break;
             case 'mythic3': conditionMet = getMythicCount() >= 3; break;
             case 'mythic5': conditionMet = getMythicCount() >= 5; break;
@@ -389,7 +424,7 @@ function checkAchievements() {
 }
 
 function spawnEnemy() {
-    let isBoss = (player.floor % 100 === 0);
+    let isBoss = (player.floor % 50 === 0);
     const scale = Math.pow(1.03, player.floor - 1);
     
     if (isBoss) {
@@ -793,7 +828,30 @@ function submitScore() {
             maxFloor: player.stats.maxFloor,
             lvl: player.lvl
         })
-    }).catch(console.error);
+    }).then(updateMyRank).catch(console.error);
+}
+
+let currentRankStr = '未登録';
+async function updateMyRank() {
+    if (!player.name) {
+        currentRankStr = '未登録';
+        if (el.rank) el.rank.textContent = currentRankStr;
+        return;
+    }
+    try {
+        const res = await fetch('/api/ranking');
+        if (!res.ok) return;
+        const data = await res.json();
+        const index = data.findIndex(p => p.name === player.name);
+        if (index !== -1) {
+            currentRankStr = `${index + 1}位`;
+        } else {
+            currentRankStr = '圏外';
+        }
+        if (el.rank) el.rank.textContent = currentRankStr;
+    } catch (e) {
+        console.error(e);
+    }
 }
 
 // Modal Listeners
@@ -899,6 +957,7 @@ el.btnCloseAch.addEventListener('click', () => {
 
 // Initial renders
 updateUI();
+updateMyRank();
 
 // --- Mobile Navigation ---
 const navBtns = document.querySelectorAll('.nav-btn');
