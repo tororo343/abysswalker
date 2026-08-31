@@ -42,7 +42,31 @@ const equipData = [
     { id: 'm7', name: '神魔の盾', desc: 'DEF+100%', type: 'def%', val: 100, rarity: 'mythic', prob: 0.00001 },
     { id: 'm8', name: '神魔の血', desc: 'MaxHP+100%', type: 'hp%', val: 100, rarity: 'mythic', prob: 0.00001 }
 ];
-
+let achData = [
+    { id: 'kill1', name: '初めての勝利', desc: '敵を1体倒す', reward: '10 G', req: null },
+    { id: 'kill100', name: 'スレイヤー', desc: '敵を100体倒す', reward: '500 G', req: 'kill1' },
+    { id: 'kill1000', name: '魔王', desc: '敵を1000体倒す', reward: '10000 G', req: 'kill100' },
+    { id: 'kill10000', name: '破壊神', desc: '敵を10000体倒す', reward: 'ATK+50%', req: 'kill1000' },
+    { id: 'floor10', name: '深淵への歩み', desc: '10階層に到達する', reward: '基本ATK+5', req: null },
+    { id: 'floor50', name: '深層の探求者', desc: '50階層に到達する', reward: '基本ATK+50', req: 'floor10' },
+    { id: 'floor100', name: 'アビスウォーカー', desc: '100階層に到達する', reward: '基本ATK+1000', req: 'floor50' },
+    { id: 'floor200', name: '奈落の王', desc: '200階層に到達する', reward: 'MaxHP+50%', req: 'floor100' },
+    { id: 'lvl10', name: 'ベテラン戦士', desc: 'レベル10になる', reward: '基本MaxHP+50', req: null },
+    { id: 'lvl50', name: '英雄', desc: 'レベル50になる', reward: '基本MaxHP+500', req: 'lvl10' },
+    { id: 'die1', name: '死は成長の糧', desc: '初めて死亡する', reward: '基本DEF+5', req: null },
+    { id: 'die10', name: '死に戻り', desc: '10回死亡する', reward: '基本DEF+50', req: 'die1' },
+    { id: 'mythic1', name: '神話の始まり', desc: '神話(Mythic)装備を1種類手に入れる', reward: '基本ATK+5000', req: null },
+    { id: 'mythic3', name: '神々の加護', desc: '神話(Mythic)装備を3種類手に入れる', reward: '基本MaxHP+50000', req: 'mythic1' },
+    { id: 'mythic5', name: '世界の観測者', desc: '神話(Mythic)装備を全5種類手に入れる', reward: '基本ATK+50000', req: 'mythic3' },
+    { id: 'kill50000', name: '死神', desc: '敵を50000体倒す', reward: 'DEF+50%', req: 'kill10000' },
+    { id: 'kill100000', name: '殲滅者', desc: '敵を100000体倒す', reward: 'MaxHP+100%', req: 'kill50000' },
+    { id: 'floor300', name: '絶望の淵', desc: '300階層に到達する', reward: '基本ATK+10000', req: 'floor200' },
+    { id: 'floor400', name: '虚無', desc: '400階層に到達する', reward: '基本DEF+10000', req: 'floor300' },
+    { id: 'floor500', name: '深淵の主', desc: '500階層に到達する', reward: '基本MaxHP+100000', req: 'floor400' },
+    { id: 'lvl100', name: '覚醒者', desc: 'レベル100になる', reward: '基本ATK+5000', req: 'lvl50' },
+    { id: 'lvl200', name: '超越者', desc: 'レベル200になる', reward: '基本DEF+5000', req: 'lvl100' },
+    { id: 'lvl500', name: '神の領域', desc: 'レベル500になる', reward: '基本MaxHP+50000', req: 'lvl200' },
+    { id: 'die50', name: '不死鳥', desc: '50回死亡する', reward: '基本DEF+500', req: 'die10' },
     { id: 'die100', name: '死を克服せし者', desc: '100回死亡する', reward: '基本DEF+5000', req: 'die50' }
 ];
 
