@@ -948,7 +948,7 @@ function renderFloorList() {
     el.floorList.appendChild(btn1);
 
     // Add buttons for every 50 floors up to maxFloor
-    for (let f = 50; f <= maxF; f += 50) {
+    for (let f = 51; f <= maxF; f += 50) {
         const btn = document.createElement('button');
         btn.className = 'action-btn shop-btn';
         btn.style.marginBottom = '10px';
