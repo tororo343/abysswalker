@@ -282,8 +282,10 @@ function saveGame() {
 }
 
 function formatNumber(num) {
-    if (num >= 100000) return num.toExponential(4);
-    return Math.floor(num).toLocaleString('en-US');
+    let n = Number(num);
+    if (isNaN(n)) return "0";
+    if (n >= 100000000) return n.toExponential(4); // 1億(100,000,000)から指数表示
+    return Math.floor(n).toLocaleString('en-US');
 }
 
 function updateUI() {
